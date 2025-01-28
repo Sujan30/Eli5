@@ -60,21 +60,50 @@
             margin-top: 20px;
             font-size: 16px;
         }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid #333;
+            border-top: 4px solid #4a9eff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div class="search-container">
         <div class="logo">ELI5</div>
         <div class="tagline">Simple explanations for complex topics</div>
-        <form action="/search" method="POST">
-            <input type="text" name="query" class="search-box" placeholder="What would you like explained simply?">
+        <form action="/search" method="POST" id="searchForm">
+            <input type="text" name="query" class="search-box" placeholder="What would you like explained simply?" required>
             <div>
-                <button type="submit" class="search-button">Search</button>
+                <button type="submit" class="search-button" id="searchButton">Search</button>
             </div>
         </form>
+        <div id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p style="color: #888;">Generating your explanation...</p>
+        </div>
+        {% if error %}
+        <div class="error-message" style="color: #ff4444; margin-top: 20px;">
+            {{ error }}
+        </div>
+        {% endif %}
     </div>
     <div class="response-container">
         
     </div>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('searchButton').disabled = true;
+        });
+    </script>
 </body>
 </html>
