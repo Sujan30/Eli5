@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELI5 - Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .response-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .question {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #4a9eff;
+        }
+        .question h2 {
+            color: #4a9eff;
+            margin-top: 0;
+        }
+        .answer {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+            border: 1px solid #333;
+        }
+        .answer h2 {
+            color: #4a9eff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #4a9eff;
+            padding-bottom: 10px;
+        }
+        .answer p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .answer ul, .answer ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .answer li {
+            margin-bottom: 8px;
+        }
+        .answer strong {
+            color: #4a9eff;
+        }
+        .answer em {
+            color: #b8e0ff;
+        }
+        .answer-content {
+            white-space: pre-line;
+        }
+        .key-point {
+            background-color: #1f1f1f;
+            padding: 15px;
+            border-left: 4px solid #4a9eff;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .example {
+            background-color: #1f1f1f;
+            padding: 15px;
+            border-left: 4px solid #45a049;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .back-button {
+            background-color: #2d2d2d;
+            color: #4a9eff;
+            border: 1px solid #4a9eff;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .back-button:hover {
+            background-color: #4a9eff;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="response-container">
+        <div class="question">
+            <h2>Your Question:</h2>
+            <p>{{ query }}</p>
+        </div>
+        <div class="answer">
+            <h2>Simple Explanation:</h2>
+            <div class="answer-content">{{ response | safe }}</div>
+        </div>
+        <a href="/" class="back-button">Ask Another Question</a>
+    </div>
+</body>
+</html>
