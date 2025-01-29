@@ -1,5 +1,6 @@
 import os
-from dotenv import load_dotenv
+# Remove this line since we won't use dotenv
+# from dotenv import load_dotenv
 from flask import Flask, request, render_template
 from openai import OpenAI
 from functools import lru_cache
@@ -10,10 +11,9 @@ app = Flask(__name__)
 # Add this line
 cached_responses = {}
 
-# Get the directory containing app.py
-basedir = os.path.abspath(os.path.dirname(__file__))
-# Load the .env file from the same directory as app.py
-load_dotenv(os.path.join(basedir, '.env'))
+# Remove these lines since we're not using .env
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# load_dotenv(os.path.join(basedir, '.env'))
 
 # Get API key from environment variable
 api_key = os.getenv("OPENAI_API_KEY")
