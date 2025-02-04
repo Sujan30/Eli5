@@ -15,3 +15,5 @@ We do this by using the OpenAI API and changing the prompt to get an AI generate
 
 This project was inspired by Albert Einstein who once said 
 "Any fool can make something complicated. It takes a genius to make it simple."
+
+To Use it: https://sujan30.pythonanywhere.com/
