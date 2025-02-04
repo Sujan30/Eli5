@@ -4,16 +4,20 @@ import os
 from flask import Flask, request, render_template
 from openai import OpenAI
 from functools import lru_cache
+from dotenv import load_dotenv
 import hashlib
 
 app = Flask(__name__)
+
+#for devlopment purposes, REMOVE BEFORE PROD
+load_dotenv()
 
 # Add this line
 cached_responses = {}
 
 # Remove these lines since we're not using .env
-# basedir = os.path.abspath(os.path.dirname(__file__))
-# load_dotenv(os.path.join(basedir, '.env'))
+
+
 
 # Get API key from environment variable
 api_key = os.getenv("OPENAI_API_KEY")
@@ -55,7 +59,7 @@ def prompt(query):
         return cached_response
 
     client = OpenAI(api_key=api_key)
-    formatted_prompt = """Explain this topic like I'm 5 years old: {query}
+    formatted_prompt = """Explain this topic like I'm 5 years old, but don't address me as a 5 year old by calling me little buddy or anything similar: {query}
 
 Please format your response using these elements:
 - Use <strong> for important terms
@@ -67,7 +71,11 @@ Please format your response using these elements:
     response = client.chat.completions.create(
         model="gpt-4-turbo-preview",
         messages=[{"role": "user", "content": formatted_prompt.format(query=query)}],
-        max_tokens=1000
+        max_tokens=500
+
+        #changed max_tokens from 1,000 to 500 to measure effiecency
+
+        #1000 tokens = 28.8700s
     )
     return response.choices[0].message.content
 
