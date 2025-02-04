@@ -1,0 +1,2 @@
+Changes made:
+- no longer says little buddy in responses

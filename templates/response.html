@@ -1,70 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELI5 - Response</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            padding: 20px;
-        }
-        .response-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #2d2d2d;
-            padding: 30px;
-            border-radius: 8px;
-        }
-        .question {
-            margin-bottom: 30px;
-        }
-        .answer-content {
-            line-height: 1.6;
-        }
-        .back-button {
-            background-color: #2d2d2d;
-            color: #4a9eff;
-            border: 1px solid #4a9eff;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-        }
-        .back-button:hover {
-            background-color: #4a9eff;
-            color: #1a1a1a;
-        }
-        .key-point {
-            background-color: #3d3d3d;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #4a9eff;
-        }
-        .example {
-            background-color: #3d3d3d;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELI5 - Conversation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      padding: 20px;
+    }
+    .response-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #2d2d2d;
+      padding: 30px;
+      border-radius: 8px;
+    }
+    .message {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      word-wrap: break-word;
+    }
+    /* Style for user messages */
+    .message.user {
+      background-color: #3d3d3d;
+      text-align: right;
+    }
+    /* Style for bot responses */
+    .message.bot {
+      background-color: #2d2d2d;
+      text-align: left;
+    }
+    .message h2 {
+      margin: 0 0 5px 0;
+      font-size: 1.2em;
+    }
+    .message p {
+      margin: 0;
+      line-height: 1.6;
+    }
+    .back-button {
+      background-color: #2d2d2d;
+      color: #4a9eff;
+      border: 1px solid #4a9eff;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .back-button:hover {
+      background-color: #4a9eff;
+      color: #1a1a1a;
+    }
+    .continue-form {
+      margin-top: 30px;
+    }
+    .continue-form input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 4px;
+      border: 1px solid #333;
+      margin-bottom: 10px;
+      background-color: #2d2d2d;
+      color: #fff;
+    }
+    .continue-form button {
+      padding: 10px 20px;
+      background-color: #2d2d2d;
+      color: #4a9eff;
+      border: 1px solid #4a9eff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .continue-form button:hover {
+      background-color: #4a9eff;
+      color: #1a1a1a;
+    }
+    /* Optional: Styling for specific content blocks */
+    .key-point {
+      background-color: #3d3d3d;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #4a9eff;
+    }
+    .example {
+      background-color: #3d3d3d;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #45a049;
+    }
+  </style>
 </head>
 <body>
-    <div class="response-container">
-        <div class="question">
-            <h2>Your Question:</h2>
-            <p>{{ query }}</p>
-        </div>
-        <div class="answer">
-            <h2>Simple Explanation:</h2>
-            <div class="answer-content">{{ response | safe }}</div>
-        </div>
-        <a href="/" class="back-button">Ask Another Question</a>
-    </div>
+    
+
+  <div class="response-container">
+    <!-- Loop through the conversation thread -->
+    {% for msg in conversation %}
+    <div class="message {% if msg.sender == 'user' %}user{% elif msg.sender == 'eli5' %}bot{% endif %}">
+        {% if msg.sender == 'user' %}
+        <!-- removed msg.message from if statement in <h2> Your Question: -->
+          <h2>Your Question: </h2>
+        {% elif msg.sender == 'eli5' %}
+          <h2>Simple Explanation:</h2>
+        {% endif %}
+        <p>{{ msg.message | safe }}</p>
+      </div>
+    {% endfor %}
+
+
+    <!-- For continuing this conversation -->
+
+    <form class="continue-form" action="/continue" method="POST">
+        <input type="text" name="query" placeholder="Type your next question here..." required>
+        <button type="submit">Send</button>
+      </form>
+    
+      <!-- Button for a new convo-->
+    <a href="/new_search" class="back-button">Ask Another Question</a>
+
+  </div>
 </body>
 </html>
